@@ -318,6 +318,30 @@ document.addEventListener('DOMContentLoaded', async function() {
     const doc = new DOMParser().parseFromString(template, 'text/html');
     document.documentElement.replaceWith(doc.documentElement);
 
+    // Явно ставим title и OG/Twitter-теги: helmet в шаблоне переносит в head
+    // только link и style, title/meta он не подхватывает — задаём их сами,
+    // чтобы ссылка красиво разворачивалась в Телеграме и в вкладке было имя, а не путь.
+    try {
+      document.title = "Ирина — предзапись «Переход: новое сознание»";
+      const metaTags = [
+        { name: "description", content: "Предзапись на программу Ирины «Переход: новое сознание». Старт 21 сентября 2026 — попадите в закрытый канал уже сейчас." },
+        { property: "og:type", content: "website" },
+        { property: "og:title", content: "Ирина — предзапись «Переход: новое сознание»" },
+        { property: "og:description", content: "Предзапись на программу Ирины «Переход: новое сознание». Старт 21 сентября 2026 — попадите в закрытый канал уже сейчас." },
+        { property: "og:url", content: "https://florise-web.github.io/irina-predzapis/" },
+        { name: "twitter:card", content: "summary" },
+        { name: "twitter:title", content: "Ирина — предзапись «Переход: новое сознание»" },
+        { name: "twitter:description", content: "Предзапись на программу Ирины «Переход: новое сознание». Старт 21 сентября 2026 — попадите в закрытый канал уже сейчас." }
+      ];
+      metaTags.forEach((m) => {
+        const el = document.createElement("meta");
+        if (m.name) el.setAttribute("name", m.name);
+        if (m.property) el.setAttribute("property", m.property);
+        el.setAttribute("content", m.content);
+        document.head.appendChild(el);
+      });
+    } catch (e) {}
+
     // Resolve page-frame markers: mint this document's own blob for each
     // framed page — from local text when this is the root, otherwise by
     // asking the direct parent over the relay protocol above. An
