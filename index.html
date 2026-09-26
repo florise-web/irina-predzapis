@@ -87,6 +87,13 @@
   .for-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin:28px 0;}
   .for-cell{display:flex; gap:10px; align-items:center; padding:14px 18px; border-radius:6px; font-size:15px; color:var(--text-h);}
   .n-circle{display:flex; align-items:center; justify-content:center; width:56px; height:56px; border-radius:50%; font-family:'Cormorant Garamond',serif; font-size:26px; color:#241a3d; flex:none;}
+  .case-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; margin-top:36px;}
+  .case-card{padding:24px 24px; border-radius:8px;}
+  .case-role{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--text-dim); margin-bottom:4px;}
+  .case-name{font-family:'Cormorant Garamond',serif; font-size:24px; color:var(--text-h); margin-bottom:14px;}
+  .case-row{display:flex; gap:8px; font-size:14px; line-height:1.6; margin-bottom:8px;}
+  .case-row b{flex:none; font-weight:600;}
+  .case-quote{margin-top:14px; font-style:italic; font-size:14px; line-height:1.6; color:var(--text-b2); padding-top:12px; border-top:1px solid rgba(255,255,255,.08);}
   .steps4{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px; margin-top:36px;}
   .step4 .num{font-family:'Cormorant Garamond',serif; font-size:34px; color:var(--gold); margin-bottom:10px;}
   .step4 h3{font-size:19px; color:var(--text-h); margin-bottom:8px;}
@@ -304,6 +311,45 @@
       <div class="result" style="border-left:3px solid var(--rose); background:rgba(230,137,159,.10);"><span style="color:var(--rose);">✦</span>Другие отношения с телом, желанием и своей женственностью</div>
       <div class="result" style="border-left:3px solid var(--teal); background:rgba(111,201,184,.10);"><span style="color:var(--teal);">✦</span>Практики, которые останутся с вами и после программы</div>
       <div class="result" style="border-left:3px solid var(--lilac); background:rgba(179,157,219,.10);"><span style="color:var(--lilac);">✦</span>Ощущение «я живу свою жизнь, я на своём месте»</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ КЕЙСЫ ============ -->
+<section>
+  <div class="wrap">
+    <span class="chip chip-gold">Кейсы</span><br>
+    <h2 class="center" style="font-size:clamp(26px,4vw,40px);">Что происходит с теми, кто доходит до конца</h2>
+    <p class="center muted" style="max-width:600px; margin:16px auto 0; font-size:15px; line-height:1.7;">Реальные истории учениц Ирины. Разные точки старта, разные ниши, разный возраст.</p>
+    <div class="case-grid">
+      <div class="case-card box box-gold" style="background:rgba(224,176,99,.07);">
+        <p class="case-role">Нумеролог, астролог, энергопрактик</p>
+        <p class="case-name">Аида</p>
+        <div class="case-row"><b style="color:var(--gold);">А:</b><span>доход 15 000 ₽, нет системных продаж, выгорание — не было сил выходить в блог</span></div>
+        <div class="case-row"><b style="color:var(--gold);">Б:</b><span>+250 000 ₽ в первый месяц, блог вырос с 6 339 до 45 200 подписчиков</span></div>
+        <p class="case-quote">«Цена 10 000 рублей, ценность 1 000 000»</p>
+      </div>
+      <div class="case-card box box-rose" style="background:rgba(230,137,159,.07);">
+        <p class="case-role">Преподает живопись, Санкт-Петербург</p>
+        <p class="case-name">Наталья</p>
+        <div class="case-row"><b style="color:var(--rose);">А:</b><span>доход около 60 000 ₽, не хватало на базовые потребности, апатия</span></div>
+        <div class="case-row"><b style="color:var(--rose);">Б:</b><span>доход вырос в 2,5 раза до 150 000 ₽ на той же работе, продала картину за чек, который раньше считала невозможным</span></div>
+        <p class="case-quote">«Это не волшебная палочка. Но после практик вы почувствуете, что вы другая»</p>
+      </div>
+      <div class="case-card box box-teal" style="background:rgba(111,201,184,.07);">
+        <p class="case-role">Модель</p>
+        <p class="case-name">Марина</p>
+        <div class="case-row"><b style="color:var(--teal);">А:</b><span>апатия, прокрастинация, мало клиентов, не понимала, что делать дальше</span></div>
+        <div class="case-row"><b style="color:var(--teal);">Б:</b><span>доход вырос в 2 раза, заняла 2 место в конкурсе красоты «Топ-100 девушек России», пошли предложения показов</span></div>
+        <p class="case-quote">«Стоит мне только подумать — и это осуществляется»</p>
+      </div>
+      <div class="case-card box box-lilac" style="background:rgba(179,157,219,.07);">
+        <p class="case-role">Наставник, свой блог</p>
+        <p class="case-name">Даша</p>
+        <div class="case-row"><b style="color:var(--lilac);">А:</b><span>три года в тяжелом состоянии, доход упал в ноль, страх проявленности</span></div>
+        <div class="case-row"><b style="color:var(--lilac);">Б:</b><span>вернулись энергия и наполненность, создала свои методы, платный Telegram уже на 65 человек</span></div>
+        <p class="case-quote">«Я обрела себя настоящую»</p>
+      </div>
     </div>
   </div>
 </section>
