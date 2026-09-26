@@ -125,9 +125,14 @@
   .consent input{flex:none; margin-top:3px; width:18px; height:18px; accent-color:var(--gold);}
   .hp{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden;}
   .form-msg{margin:0; padding:12px 16px; background:rgba(168,117,224,.14); border:1px solid rgba(168,117,224,.4); border-radius:3px; font-size:14.5px; color:#f2ece0;}
-  .thanks{display:none; text-align:center;}
-  .thanks.show{display:block;}
+  .modal-overlay{position:fixed; inset:0; background:rgba(10,6,20,.74); backdrop-filter:blur(5px); -webkit-backdrop-filter:blur(5px); z-index:999; display:none; align-items:center; justify-content:center; padding:24px; overflow-y:auto;}
+  .modal-overlay.show{display:flex;}
+  .modal-card{position:relative; max-width:480px; width:100%; margin:auto; background:linear-gradient(160deg,#241a3d,#181227); border:1px solid rgba(224,176,99,.35); border-radius:10px; padding:clamp(32px,5vw,48px) clamp(24px,4vw,40px); text-align:center; box-shadow:0 40px 90px rgba(0,0,0,.55); animation:modalIn .28s ease;}
+  @keyframes modalIn{from{opacity:0; transform:translateY(14px) scale(.97);} to{opacity:1; transform:translateY(0) scale(1);}}
+  .modal-close{position:absolute; top:14px; right:14px; width:34px; height:34px; border-radius:50%; border:1px solid rgba(224,176,99,.32); background:transparent; color:var(--text-dim); font-size:20px; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:border-color .2s, color .2s;}
+  .modal-close:hover{color:var(--text-h); border-color:rgba(224,176,99,.65);}
   .form-block.hide{display:none;}
+  button[disabled].btn-block{opacity:.6; cursor:default;}
 
   /* FAQ */
   details{padding:22px 24px; background:var(--bg-2); border:1px solid rgba(224,176,99,.16); border-radius:3px; margin-bottom:14px;}
@@ -435,12 +440,15 @@
         <button type="submit" class="btn btn-gold btn-block">Попасть в предзапись →</button>
       </form>
     </div>
-    <div class="thanks" id="thanksBlock">
-      <p class="eyebrow">Готово</p>
-      <h2 style="font-size:clamp(28px,4.4vw,46px); margin-bottom:18px;">Готово</h2>
-      <p class="muted" style="max-width:460px; margin:0 auto 30px; font-size:16px; line-height:1.7;">Катя из команды Ирины напишет вам сегодня и пришлет доступ в закрытый канал с уроками.</p>
-      <a href="https://t.me/irina_predzapis_bot" target="_blank" rel="noopener" class="btn btn-gold">Забрать доступ сейчас →</a>
-      <p class="small" style="margin-top:22px; color:var(--text-dim);">Если что-то не пришло, напишите нам: <a href="https://t.me/florise_irina" target="_blank" rel="noopener" style="text-decoration:underline;">@florise_irina</a></p>
+    <div class="modal-overlay" id="thanksModal">
+      <div class="modal-card">
+        <button type="button" class="modal-close" id="thanksClose" aria-label="Закрыть">×</button>
+        <p class="eyebrow">Готово</p>
+        <h2 style="font-size:clamp(26px,4.2vw,40px); margin-bottom:18px;">Готово</h2>
+        <p class="muted" style="max-width:400px; margin:0 auto 30px; font-size:16px; line-height:1.7;">Катя из команды Ирины напишет вам сегодня и пришлет доступ в закрытый канал с уроками.</p>
+        <a href="https://t.me/irina_predzapis_bot" target="_blank" rel="noopener" class="btn btn-gold">Забрать доступ сейчас →</a>
+        <p class="small" style="margin-top:22px; color:var(--text-dim);">Если что-то не пришло, напишите нам: <a href="https://t.me/florise_irina" target="_blank" rel="noopener" style="text-decoration:underline;">@florise_irina</a></p>
+      </div>
     </div>
   </div>
 </section>
@@ -597,9 +605,17 @@
     var leadId = backup(params);
     fireAndForget(target, leadId);
 
-    document.getElementById('formBlock').classList.add('hide');
-    document.getElementById('thanksBlock').classList.add('show');
+    var submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn){ submitBtn.disabled = true; submitBtn.textContent = 'Заявка отправлена ✓'; }
+    document.getElementById('thanksModal').classList.add('show');
   });
+
+  var thanksModal = document.getElementById('thanksModal');
+  var thanksClose = document.getElementById('thanksClose');
+  function closeThanksModal(){ thanksModal.classList.remove('show'); }
+  if (thanksClose) thanksClose.addEventListener('click', closeThanksModal);
+  if (thanksModal) thanksModal.addEventListener('click', function(e){ if (e.target === thanksModal) closeThanksModal(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && thanksModal.classList.contains('show')) closeThanksModal(); });
 })();
 </script>
 
