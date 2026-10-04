@@ -626,7 +626,7 @@ a:hover{color:#F0DCA8}
               <span style="font:500 12px/1.5 Manrope,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#D8B26A">Telegram</span>
               <input name="telegram" type="text" required="" value="{{ f.tg }}" sc-camel-on-change="{{ f.onTg }}" placeholder="@username" style="height:52px;padding:0 18px;border-radius:14px;border:1px solid rgba(123,79,201,.22);background:#140C20;color:#EDE7F2;font:400 16px Manrope,sans-serif;outline:none" style-focus="border-color:#7B4FC9">
             </label>
-            <label style="display:flex;flex-direction:column;gap:8px"><span style="font:500 12px/1.5 Manrope,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#D8B26A">Что сейчас актуально</span><select name="request" required="" sc-camel-on-change="{{ f.onRequest }}" style="height:52px;padding:0 44px 0 18px;border-radius:14px;border:1px solid rgba(123,79,201,.22);background-color:#140C20;color:#EDE7F2;font:400 16px Manrope,sans-serif;outline:none;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9' fill='none'><path d='M1 1l6 6 6-6' stroke='%23D8B26A' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");background-repeat:no-repeat;background-position:right 18px center" style-focus="border-color:#7B4FC9"><option value="" disabled="" selected="" style="background:#140C20;color:#8C7BA6">Выберите вариант</option><option value="доход уперся в потолок" style="background:#140C20;color:#EDE7F2">доход уперся в потолок</option><option value="застряла в работе, которая не моя" style="background:#140C20;color:#EDE7F2">застряла в работе, которая не моя</option><option value="снова те же отношения, как будто по кругу" style="background:#140C20;color:#EDE7F2">снова те же отношения, как будто по кругу</option><option value="тревога и усталость, не чувствую себя живой" style="background:#140C20;color:#EDE7F2">тревога и усталость, не чувствую себя живой</option><option value="хочу поменять все, но не знаю с чего начать" style="background:#140C20;color:#EDE7F2">хочу поменять все, но не знаю с чего начать</option><option value="другое" style="background:#140C20;color:#EDE7F2">другое</option></select></label>
+            <div style="display:flex;flex-direction:column;gap:10px"><span style="font:500 12px/1.5 Manrope,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#D8B26A">Что сейчас актуально</span><sc-for list="{{ f.options }}" as="o" hint-placeholder-count="6"><div sc-camel-on-click="{{ o.pick }}" style="display:flex;align-items:center;gap:12px;cursor:pointer;padding:13px 16px;border-radius:14px;border:1px solid {{ o.border }};background:{{ o.bg }};transition:border-color .2s,background .2s"><span style="flex:none;width:18px;height:18px;border-radius:50%;border:1px solid {{ o.dotBorder }};display:flex;align-items:center;justify-content:center"><span style="width:8px;height:8px;border-radius:50%;background:{{ o.dot }}"></span></span><span style="font:400 15px/1.45 Manrope,sans-serif;color:#EDE7F2">{{ o.label }}</span></div></sc-for></div>
             <label style="display:flex;align-items:flex-start;gap:12px;cursor:pointer;font-size:14px;line-height:1.5;color:#A99BBA">
               <input name="consent" value="yes" type="checkbox" required="" checked="{{ f.agree }}" sc-camel-on-change="{{ f.onAgree }}" style="margin:2px 0 0;width:18px;height:18px;accent-color:#D8B26A;flex:none">
               <span>Даю <a href="https://docs.yandex.ru/view/d/SBqO7dWgWwKQwQChnp87WSPegnqahzm72s0qoIz-cKg6ZzNyUWRaZmV5QQ" target="_blank" rel="noopener" style="color:#D8B26A">согласие на обработку персональных данных</a> в соответствии с <a href="https://docs.yandex.ru/view/d/SBqO7dWgWwKQwQChnp87WSPegnqahzm72s0qoIz-cKg6TzNFR3kzRG0wdw" target="_blank" rel="noopener" style="color:#D8B26A">политикой</a></span>
@@ -806,7 +806,7 @@ class Component extends DCLogic {
   }
   blank = () => ({ name: '', phone: '', tg: '', request: '', agree: false, err: '', sent: false, sending: false });
   state = { open: { 0: true, 1: true, 2: true }, mobile: false, f1: this.blank() };
-  choices = ['доход уперся в потолок', 'застряла в работе, которая не моя', 'снова те же отношения, как будто по кругу', 'тревога и усталость, не чувствую себя живой', 'другое'];
+  choices = ['доход уперся в потолок', 'застряла в работе, которая не моя', 'снова те же отношения, как будто по кругу', 'тревога и усталость, не чувствую себя живой', 'хочу поменять все, но не знаю с чего начать', 'другое'];
   faqData = [
     ['Что дает предзапись?', 'Три урока открываются сразу: вступительный, «Подсознание» и «Переход сознания». Плюс закрытый канал с практиками Ирины до старта. Об открытии продаж и условиях вы узнаете первыми, а команда поможет выбрать формат.'],
     ['Как работает бронирование?', 'Вы вносите бронь, и место закрепляется за вами до открытия продаж. Сумма брони полностью входит в стоимость участия, какой бы формат вы ни выбрали.'],
@@ -851,7 +851,7 @@ class Component extends DCLogic {
       onPhone: e => set({ phone: e.target.value, err: '' }), onRequest: e => set({ request: e.target.value, err: '' }), onAgree: e => set({ agree: e.target.checked, err: '' }),
       options: this.choices.map((label, i) => {
         const on = f.choice === i;
-        return { label, pick: () => set({ choice: i }), border: on ? '#7B4FC9' : 'rgba(123,79,201,.22)', bg: on ? 'rgba(123,79,201,.14)' : 'transparent', dotBorder: on ? '#D8B26A' : 'rgba(169,155,186,.5)', dot: on ? '#D8B26A' : 'transparent' };
+        return { label, pick: () => set({ choice: i, request: label, err: '' }), border: on ? '#7B4FC9' : 'rgba(123,79,201,.22)', bg: on ? 'rgba(123,79,201,.14)' : 'transparent', dotBorder: on ? '#D8B26A' : 'rgba(169,155,186,.5)', dot: on ? '#D8B26A' : 'transparent' };
       }),
       submit: async (e) => {
         e.preventDefault(); if (f.sending) return;
@@ -861,7 +861,7 @@ class Component extends DCLogic {
         if (!String(f.name || '').trim()) miss.push('имя');
         if (digits.length < 10) miss.push('телефон');
         if (tgRaw.length < 3) miss.push('ник в Telegram');
-        if (!String(f.request || '').trim()) miss.push('что сейчас актуально');
+        if (!String(f.request || '').trim()) miss.push('выберите, что сейчас актуально');
         if (miss.length) { set({ err: 'Заполните: ' + miss.join(', ') }); return; }
         if (!f.agree) { set({ err: 'Поставьте галочку согласия на обработку данных' }); return; }
         set({ err: '', sending: true });
