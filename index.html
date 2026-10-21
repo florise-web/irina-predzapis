@@ -865,7 +865,7 @@ class Component extends DCLogic {
         if (miss.length) { set({ err: 'Заполните: ' + miss.join(', ') }); return; }
         if (!f.agree) { set({ err: 'Поставьте галочку согласия на обработку данных' }); return; }
         set({ err: '', sending: true });
-        const url = this.props.webhookUrl || 'https://script.google.com/macros/s/AKfycbwZNJxbmarbbimY87ydj2x7skVhUzYzqEWvVVOayOgqK8VfXeIUbkqqZsJRnyqN5cWu9g/exec'; const SRC = (function(){ try { var p = new URLSearchParams(location.search); var s = p.get('s') || p.get('utm_source') || ''; if (s) { try { localStorage.setItem('fl_src', s); } catch(e){} } else { try { s = localStorage.getItem('fl_src') || ''; } catch(e){} } return s || 'прямой'; })();
+        const url = this.props.webhookUrl || 'https://script.google.com/macros/s/AKfycbwZNJxbmarbbimY87ydj2x7skVhUzYzqEWvVVOayOgqK8VfXeIUbkqqZsJRnyqN5cWu9g/exec'; const SRC = (function(){ try { var p = new URLSearchParams(location.search); var s = p.get('s') || p.get('utm_source') || ''; if (s) { try { localStorage.setItem('fl_src', s); } catch(e){} } else { try { s = localStorage.getItem('fl_src') || ''; } catch(e){} } return s || 'прямой'; } catch(e){ return 'прямой'; } })();
         const payload = new URLSearchParams({ name: f.name, phone: f.phone, telegram: f.tg, request: (f.request || '') + ' // источник: ' + SRC, consent: f.agree ? 'yes' : '', source: source + ' / ' + SRC, utm: SRC, date: new Date().toISOString() });
         try { if (url) await fetch(url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' }, body: payload.toString() }); } catch (err) {}
         try { window.ym && window.ym(this.props.metrikaId, 'reachGoal', 'predzapis'); } catch (err) {}
